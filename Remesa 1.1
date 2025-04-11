@@ -1,24 +1,20 @@
 package com.example.holamundo
-
-fun main()
-{   println("Ingrese el monto a enviar")
-    var total = readlnOrNull()?.toDoubleOrNull()?:0.0
-    println("Se cobrara la comision antes de enviar")
+fun main() {
+    println("Ingrese el monto a enviar:")
+    val total = readlnOrNull()?.toDoubleOrNull() ?: 0.0
     var comision = 0.0
-    if (total <= 1000)
-    {   comision = 5.0
+    if (total <= 1000) {
+        comision = 5.0
+    } else if (total <= 10001) {
+        comision = total * 0.5 / 100
+    } else {
+        comision = total * 1.5 / 100
     }
-    else if(total <= 10001)
-    {   comision = total * 0.5/100
-    }
-    else
-    {   comision = total * 1.5/100
-    }
-    println("La comision cobrada es $comision")
-    total = total - comision
-    println("Se cobrara el interes ITF que es el 0.005%")
-
-    val ITF = total * 0.00005
-    val remesa = total - ITF
-    println("EL monto que llegara a su destinatario es: $remesa")
+    println("La comision cobrada es: ${"%.2f".format(comision)}")
+    val totalDespuesComision = total - comision
+    println("El monto despues de deducir la comision es: ${"%.2f".format(totalDespuesComision)}")
+    val ITF = totalDespuesComision * 0.00005
+    println("El ITF aplicado es: ${"%.5f".format(ITF)}")
+    val remesa = totalDespuesComision - ITF
+    println("El monto que llegara al destinatario es: ${"%.2f".format(remesa)}")
 }
